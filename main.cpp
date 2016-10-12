@@ -1,13 +1,14 @@
-#include <iostream>
+ #include <iostream>
 #include <cmath>
 #include <stdlib.h>
 #include "solarsystem.h"
 #include "euler.h"
+#include "verlet.h"
 using namespace std;
 
 int main(int numArguments, char **arguments)
 {
-    int numTimesteps = 1000;
+    int numTimesteps = 100;
     if(numArguments >= 2) numTimesteps = atoi(arguments[1]);
 
     SolarSystem solarSystem;
@@ -29,13 +30,19 @@ int main(int numArguments, char **arguments)
     }
 
     double dt = 0.001;
-    Euler integrator(dt);
+    //Euler integrator(dt);
+    Verlet integrator(dt);
     for(int timestep=0; timestep<numTimesteps; timestep++) {
         integrator.integrateOneStep(solarSystem);
         solarSystem.writeToFile("positions.xyz");
     }
 
     cout << "I just created my first solar system that has " << solarSystem.bodies().size() << " objects." << endl;
+
+    cout << "The kinetic energy is " << solarSystem.kineticEnergy() << endl;
+    cout << "The potential energy is " << solarSystem.potentialEnergy() << endl;
+    cout << "The total energy is " << solarSystem.totalEnergy() << endl;
     return 0;
+
 }
 
