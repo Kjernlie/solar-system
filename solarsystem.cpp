@@ -33,11 +33,12 @@ void SolarSystem::calculateForcesAndEnergy()
             vec3 deltaRVector = body1.position - body2.position;
             double dr = deltaRVector.length();
             // Calculate the force and potential energy here
-            body1.force += - G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr); //added
-            body2.force -= - G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr); //added
+            body1.force -= G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr); //added
+            body2.force += G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr); //added
 
             // Added potential energy
             m_potentialEnergy += - G*body1.mass*body2.mass / dr;  // added
+            m_angularMomentum += body1.mass*(deltaRVector.cross(body1.velocity));
 
        }
 
@@ -65,7 +66,7 @@ double SolarSystem::kineticEnergy() const
     return m_kineticEnergy;
 }
 
-void SolarSystem::writeToFile(string filename)
+void SolarSystem::writeToFile(string filename, int timestep)
 {
     if(!m_file.good()) {
         m_file.open(filename.c_str(), ofstream::out);
@@ -75,8 +76,8 @@ void SolarSystem::writeToFile(string filename)
         }
     }
 
-    m_file << numberOfBodies() << endl;
-    m_file << "Comment line that needs to be here. Balle." << endl;
+    m_file << "The number of planets is: " << numberOfBodies() << endl;
+    m_file << "This is timestep: " << timestep << endl;
     for(CelestialBody &body : m_bodies) {
         m_file << "1 " << body.position.x() << " " << body.position.y() << " " << body.position.z() << "\n";
     }

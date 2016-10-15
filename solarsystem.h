@@ -17,7 +17,7 @@ public:
     double totalEnergy() const;
     double potentialEnergy() const;
     double kineticEnergy() const;
-    void writeToFile(std::string filename);
+    void writeToFile(std::string filename, int timestep);
     vec3 angularMomentum() const;
     std::vector<CelestialBody> &bodies();
 
