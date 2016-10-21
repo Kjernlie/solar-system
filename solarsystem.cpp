@@ -19,7 +19,9 @@ void SolarSystem::calculateForcesAndEnergy()
     m_kineticEnergy = 0;
     m_potentialEnergy = 0;
     m_angularMomentum.zeros();
-    double G = 4*M_PI*M_PI;  // added
+    double G = 4*M_PI*M_PI;
+    double c = 63072;
+    // make this m_G and m_c
 
     for(CelestialBody &body : m_bodies) {
         // Reset forces on all bodies
@@ -30,19 +32,31 @@ void SolarSystem::calculateForcesAndEnergy()
         CelestialBody &body1 = m_bodies[i];
         for(int j=i+1; j<numberOfBodies(); j++) {
             CelestialBody &body2 = m_bodies[j];
+            //double dx = body1.position[0] - body2.position[0];
+            //double dy = body1.position[1] - body2.position[1];
+            //double dz = body1.position[2] - body2.position[2];
+            //double dr2 = dx*dx + dy*dy + dz*dz;
+            //double dr = sqrt(dr2);
+
             vec3 deltaRVector = body1.position - body2.position;
+            vec3 deltaRvelocity = body1.velocity - body2.velocity;
             double dr = deltaRVector.length();
             // Calculate the force and potential energy here
-            body1.force -= G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr); //added
-            body2.force += G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr); //added
+            //body1.force -= G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr);
+            //body2.force += G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr);
+
+            // Perihelion precession
+            double l = (deltaRVector.cross(deltaRvelocity)).length();
+            body1.force -= G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr)*(1 + 3*l*l/(dr*dr*c*c));
+            body2.force += G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr)*(1 + 3*l*l/(dr*dr*c*c));
 
             // Added potential energy
-            m_potentialEnergy += - G*body1.mass*body2.mass / dr;  // added
-            m_angularMomentum += body1.mass*(deltaRVector.cross(body1.velocity));
-
-       }
+            m_potentialEnergy += - G*body1.mass*body2.mass / dr;
+            m_angularMomentum += body2.mass*body2.position.cross(body2.velocity);
+        }
 
         m_kineticEnergy += 0.5*body1.mass*body1.velocity.lengthSquared();
+        //m_angularMomentum += body1.mass*body1.position.cross(body1.velocity);
     }
 }
 

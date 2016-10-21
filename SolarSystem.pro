@@ -9,12 +9,20 @@ SOURCES += main.cpp \
     solarsystem.cpp \
     vec3.cpp \
     solver.cpp \
-    test.cpp
+    test.cpp \
+    perihelion.cpp \
+    twobody.cpp \
+    threebody.cpp \
+    milkyway.cpp
 
 HEADERS += \
     celestialbody.h \
     solarsystem.h \
     vec3.h \
     catch.hpp \
-    solver.h
+    solver.h \
+    perihelion.h \
+    twobody.h \
+    threebody.h \
+    milkyway.h
 

@@ -8,11 +8,12 @@
 #include <iostream>
 using namespace std;
 
+// Idiot! Put in a circular orbit, then we'll see!!!!
+
 TEST_CASE( "Conservation of angular momemtum" ){
     SolarSystem solarSystem;
     solarSystem.createCelestialBody( vec3(0,0,0), vec3(0,0,0), 1.0 );
-    solarSystem.createCelestialBody( vec3(9.419288875250327E-01,3.422743349115224E-01,-1.774653038679687E-04),
-                                     vec3(-6.128263831462272E-03,1.611761267097599E-02,1.349643765318894E-07)*365, 3e-6);
+    solarSystem.createCelestialBody( vec3(1, 0, 0), vec3(0, 2*M_PI, 0), 3e-6 );
 
     double dt = 0.001;
 
@@ -37,8 +38,7 @@ TEST_CASE( "Conservation of angular momemtum" ){
 TEST_CASE( "Conservation of kinetic energy" ){
     SolarSystem solarSystem;
     solarSystem.createCelestialBody( vec3(0,0,0), vec3(0,0,0), 1.0 );
-    solarSystem.createCelestialBody( vec3(9.419288875250327E-01,3.422743349115224E-01,-1.774653038679687E-04),
-                                     vec3(-6.128263831462272E-03,1.611761267097599E-02,1.349643765318894E-07)*365, 3e-6);
+    solarSystem.createCelestialBody( vec3(1, 0, 0), vec3(0, 2*M_PI, 0), 3e-6 );
     double dt = 0.001;
     Solver integrator(dt);
     for (int timestep = 0; timestep < 100; timestep++){
@@ -58,8 +58,7 @@ TEST_CASE( "Conservation of kinetic energy" ){
 TEST_CASE( "Conservation of potential Energy" ){
     SolarSystem solarSystem;
     solarSystem.createCelestialBody( vec3(0,0,0), vec3(0,0,0), 1.0 );
-    solarSystem.createCelestialBody( vec3(9.419288875250327E-01,3.422743349115224E-01,-1.774653038679687E-04),
-                                     vec3(-6.128263831462272E-03,1.611761267097599E-02,1.349643765318894E-07)*365, 3e-6);
+    solarSystem.createCelestialBody( vec3(1, 0, 0), vec3(0, 2*M_PI, 0), 3e-6 );
     double dt = 0.001;
     Solver integrator(dt);
     for (int timestep = 0; timestep < 100; timestep++){
