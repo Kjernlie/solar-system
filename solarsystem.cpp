@@ -96,6 +96,19 @@ void SolarSystem::writeToFile(string filename, int timestep)
     }
 }
 
+void SolarSystem::writeToPerihelionFile(string filename, double angle)
+{
+    if(!m_file.good()) {
+        m_file.open(filename.c_str(), ofstream::out);
+        if(!m_file.good()) {
+            cout << "Error opening file " << filename << ". Aborting!" << endl;
+            terminate();
+        }
+    }
+
+    m_file << angle << "\n";
+}
+
 vec3 SolarSystem::angularMomentum() const
 {
     return m_angularMomentum;

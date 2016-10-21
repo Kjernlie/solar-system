@@ -18,6 +18,7 @@ public:
     double potentialEnergy() const;
     double kineticEnergy() const;
     void writeToFile(std::string filename, int timestep);
+    void writeToPerihelionFile(std::string filename, double angle);
     vec3 angularMomentum() const;
     std::vector<CelestialBody> &bodies();
 

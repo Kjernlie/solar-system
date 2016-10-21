@@ -8,8 +8,8 @@ using namespace std;
 
 void perihelion()
 {
-    int years = 2;
-    double dt = 1e-6;
+    int years = 10;
+    double dt = 1e-10;
     double numTimesteps = years/dt;
     //int numTimesteps = 100;
     //if(numArguments >= 2) numTimesteps = atoi(arguments[1]);
@@ -23,37 +23,37 @@ void perihelion()
     CelestialBody &sun = bodies[0];
     CelestialBody &mercury = bodies[1];
 
-    double thetaPrevious = 0;
-    double thetaCurrent = 0;
+    //double thetaPrevious = 0;
+    //double thetaCurrent = 0;
 
     double rPreviousPrevious = 0;
     double rPrevious = 0;
     double r;
+
+    vec3 previousPosition(0,0,0);
 
 
     Solver integrator(dt);
     for(int timestep=0; timestep<numTimesteps; timestep++) {
         integrator.Verlet(solarSystem);
 
-        double x = mercury.position.x() - sun.position.x();
-        double y = mercury.position.y() - sun.position.y();
-        thetaCurrent = atan2( y, x );
-
 
         double rCurrent = (mercury.position - sun.position).length();
 
         if ( rCurrent > rPrevious && rPrevious < rPreviousPrevious){
-            cout << "Perihelion angle: " << thetaPrevious << endl;
-            cout << timestep << endl;
+
+            double x = previousPosition.x();
+            double y = previousPosition.y();
+            cout << "Perihelion angle: " << atan2(y,x) << endl;
+            solarSystem.writeToPerihelionFile("../solar-system/perihelion.txt", atan2(y,x));
         }
 
         //solarSystem.writeToFile("../solar-system/jupiter_stab_13000_01sdf.txt",timestep);
 
         rPreviousPrevious = rPrevious;
         rPrevious = rCurrent;
-        thetaPrevious = thetaCurrent;
+        previousPosition = mercury.position - sun.position;
     }
-
 
 
 }
