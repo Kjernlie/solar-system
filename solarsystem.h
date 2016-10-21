@@ -27,6 +27,8 @@ private:
     std::ofstream m_file;
     double m_kineticEnergy;
     double m_potentialEnergy;
+    double m_G;
+    double m_c;
 };
 
 #endif // SOLARSYSTEM_H

@@ -5,7 +5,9 @@ using namespace std;
 
 SolarSystem::SolarSystem() :
     m_kineticEnergy(0),
-    m_potentialEnergy(0)
+    m_potentialEnergy(0),
+    m_G(4*M_PI*M_PI),
+    m_c(63072)
 {
 }
 
@@ -19,9 +21,6 @@ void SolarSystem::calculateForcesAndEnergy()
     m_kineticEnergy = 0;
     m_potentialEnergy = 0;
     m_angularMomentum.zeros();
-    double G = 4*M_PI*M_PI;
-    double c = 63072;
-    // make this m_G and m_c
 
     for(CelestialBody &body : m_bodies) {
         // Reset forces on all bodies
@@ -42,16 +41,16 @@ void SolarSystem::calculateForcesAndEnergy()
             vec3 deltaRvelocity = body1.velocity - body2.velocity;
             double dr = deltaRVector.length();
             // Calculate the force and potential energy here
-            //body1.force -= G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr);
-            //body2.force += G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr);
+            //body1.force -= m_G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr);
+            //body2.force += m_G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr);
 
             // Perihelion precession
             double l = (deltaRVector.cross(deltaRvelocity)).length();
-            body1.force -= G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr)*(1 + 3*l*l/(dr*dr*c*c));
-            body2.force += G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr)*(1 + 3*l*l/(dr*dr*c*c));
+            body1.force -= m_G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr)*(1 + 3*l*l/(dr*dr*m_c*m_c));
+            body2.force += m_G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr)*(1 + 3*l*l/(dr*dr*m_c*m_c));
 
             // Added potential energy
-            m_potentialEnergy += - G*body1.mass*body2.mass / dr;
+            m_potentialEnergy += - m_G*body1.mass*body2.mass / dr;
             m_angularMomentum += body2.mass*body2.position.cross(body2.velocity);
         }
 
