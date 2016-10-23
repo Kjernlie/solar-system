@@ -1,3 +1,11 @@
+Note:
+To run the benchmark, insert the main function into main.cpp and run
+
+// --------------------------------------------
+
+
+
+
 #include <iostream>
 #include <cmath>
 #include <stdlib.h>
