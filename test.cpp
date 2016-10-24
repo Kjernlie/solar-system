@@ -8,7 +8,6 @@
 #include <iostream>
 using namespace std;
 
-// Idiot! Put in a circular orbit, then we'll see!!!!
 
 TEST_CASE( "Conservation of angular momemtum" ){
     SolarSystem solarSystem;
@@ -28,12 +27,11 @@ TEST_CASE( "Conservation of angular momemtum" ){
     }
     vec3 angVec500 = solarSystem.angularMomentum();
 
-    double tolerance = 1e-4;
+    double tolerance = 1e-8;
 
     REQUIRE( abs(angVec100.length() - angVec500.length()) < tolerance );
 }
 
-// So, it passes for a tolerance of 1e-4, nothing more. Can that be correct....
 
 TEST_CASE( "Conservation of kinetic energy" ){
     SolarSystem solarSystem;
@@ -51,7 +49,7 @@ TEST_CASE( "Conservation of kinetic energy" ){
     }
     double kinEn500 = solarSystem.kineticEnergy();
 
-    double tolerance = 1e-6;
+    double tolerance = 1e-8;
     REQUIRE( abs(kinEn100 - kinEn500) < tolerance );
 }
 
@@ -71,7 +69,7 @@ TEST_CASE( "Conservation of potential Energy" ){
     }
     double potEn500 = solarSystem.potentialEnergy();
 
-    double tolerance = 1e-6;
+    double tolerance = 1e-8;
     REQUIRE( abs(potEn100 - potEn500) < tolerance );
 }
 

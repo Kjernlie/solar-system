@@ -8,11 +8,9 @@ using namespace std;
 
 void perihelion()
 {
-    int years = 10;
-    double dt = 1e-10;
-    double numTimesteps = years/dt;
-    //int numTimesteps = 100;
-    //if(numArguments >= 2) numTimesteps = atoi(arguments[1]);
+    int years = 20;
+    long double dt = 1e-8;
+    long double numTimesteps = years/dt;
 
     SolarSystem solarSystem;
 
@@ -28,7 +26,6 @@ void perihelion()
 
     double rPreviousPrevious = 0;
     double rPrevious = 0;
-    double r;
 
     vec3 previousPosition(0,0,0);
 
@@ -45,7 +42,7 @@ void perihelion()
             double x = previousPosition.x();
             double y = previousPosition.y();
             cout << "Perihelion angle: " << atan2(y,x) << endl;
-            solarSystem.writeToPerihelionFile("../solar-system/perihelion.txt", atan2(y,x));
+            solarSystem.writeToPerihelionFile("../solar-system/perihelion20_8Newton.txt", atan2(y,x));
         }
 
         //solarSystem.writeToFile("../solar-system/jupiter_stab_13000_01sdf.txt",timestep);
@@ -54,7 +51,6 @@ void perihelion()
         rPrevious = rCurrent;
         previousPosition = mercury.position - sun.position;
     }
-
 
 }
 

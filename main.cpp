@@ -8,15 +8,21 @@
 #include "twobody.h"
 #include "threebody.h"
 #include "milkyway.h"
+#include "armadillo"
+#include "milkyway.h"
 using namespace std;
 
 int main(int numArguments, char **arguments)
 {
     perihelion();
+    //milkyway();
+    //threebody();
+    //twobody();
 
     return 0;
 
 }
+
 
 #endif
 

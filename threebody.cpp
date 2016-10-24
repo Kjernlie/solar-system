@@ -8,8 +8,7 @@ using namespace std;
 
 void threebody()
 {
-    int numTimesteps = 13000;
-    //if(numArguments >= 2) numTimesteps = atoi(arguments[1]);
+    int numTimesteps = 130000;
 
     SolarSystem solarSystem;
 
@@ -72,25 +71,12 @@ void threebody()
 
 
 
-
-
-//    // To get a list (a reference, not copy) of all the bodies in the solar system, we use the .bodies() function
-//    vector<CelestialBody> &bodies = solarSystem.bodies();
-
-//    for(int i = 0; i<bodies.size(); i++) {
-//        CelestialBody &body = bodies[i]; // Reference to this body
-//        cout << "The position of this object is " << body.position << " with velocity " << body.velocity << endl;
-//    }
-
-
-    double dt = 0.01;
+    double dt = 0.001;
     Solver integrator(dt);
     for(int timestep=0; timestep<numTimesteps; timestep++) {
         integrator.Verlet(solarSystem);
-        solarSystem.writeToFile("../solar-system/jupiter_stab_13000_01sdf.txt",timestep);
+        solarSystem.writeToFile("../solar-system/earthwjupiter.txt",timestep);
     }
-
-    //cout << "I just created my first solar system that has " << solarSystem.bodies().size() << " objects." << endl;
 
     cout << "The kinetic energy is " << solarSystem.kineticEnergy() << endl;
     cout << "The potential energy is " << solarSystem.potentialEnergy() << endl;

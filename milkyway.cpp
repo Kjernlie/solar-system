@@ -9,7 +9,6 @@ using namespace std;
 void milkyway()
 {
     int numTimesteps = 13000;
-    //if(numArguments >= 2) numTimesteps = atoi(arguments[1]);
 
     SolarSystem solarSystem;
 
@@ -76,48 +75,38 @@ void milkyway()
     // Solar System
     // ---------------------------------------------------------------------------
 
-//    // Sun
-//    solarSystem.createCelestialBody( r_sun -  R, v_sun - v_total, mSun);
+    // Sun
+    solarSystem.createCelestialBody( r_sun -  R, v_sun - v_total, mSun);
 
-//    // Earth
-//    solarSystem.createCelestialBody( r_earth, v_earth, mEarth);
+    // Earth
+    solarSystem.createCelestialBody( r_earth, v_earth, mEarth);
 
-//    // Jupyter
-//    solarSystem.createCelestialBody( r_jupiter-R, v_jupiter-v_total, mJupiter);
+    // Jupyter
+    solarSystem.createCelestialBody( r_jupiter-R, v_jupiter-v_total, mJupiter);
 
-//    // Mercury
-//    solarSystem.createCelestialBody( r_mercury-R, v_mercury-v_total, mMercury);
+    // Mercury
+    solarSystem.createCelestialBody( r_mercury-R, v_mercury-v_total, mMercury);
 
-//    // Venus
-//    solarSystem.createCelestialBody( r_venus-R, v_venus-v_total, mVenus);
+    // Venus
+    solarSystem.createCelestialBody( r_venus-R, v_venus-v_total, mVenus);
 
-//    // Mars
-//    solarSystem.createCelestialBody( r_mars-R, v_mars-v_total, mMars);
+    // Mars
+    solarSystem.createCelestialBody( r_mars-R, v_mars-v_total, mMars);
 
-//    // Saturn
-//    solarSystem.createCelestialBody( r_saturn-R, v_saturn-v_total, mSaturn);
+    // Saturn
+    solarSystem.createCelestialBody( r_saturn-R, v_saturn-v_total, mSaturn);
 
-//    // Uranus
-//    solarSystem.createCelestialBody( r_uranus-R, v_uranus-v_total, mUranus);
+    // Uranus
+    solarSystem.createCelestialBody( r_uranus-R, v_uranus-v_total, mUranus);
 
-//    // Neptune
-//    solarSystem.createCelestialBody( r_neptune-R, v_neptune-v_total, mNeptune);
+    // Neptune
+    solarSystem.createCelestialBody( r_neptune-R, v_neptune-v_total, mNeptune);
 
-//    // Pluto
-//    solarSystem.createCelestialBody( r_pluto-R, v_pluto-v_total, mPluto);
-
-
+    // Pluto
+    solarSystem.createCelestialBody( r_pluto-R, v_pluto-v_total, mPluto);
 
 
 
-
-//    // To get a list (a reference, not copy) of all the bodies in the solar system, we use the .bodies() function
-//    vector<CelestialBody> &bodies = solarSystem.bodies();
-
-//    for(int i = 0; i<bodies.size(); i++) {
-//        CelestialBody &body = bodies[i]; // Reference to this body
-//        cout << "The position of this object is " << body.position << " with velocity " << body.velocity << endl;
-//    }
 
 
     double dt = 0.01;
@@ -127,7 +116,6 @@ void milkyway()
         solarSystem.writeToFile("../solar-system/jupiter_stab_13000_01sdf.txt",timestep);
     }
 
-    //cout << "I just created my first solar system that has " << solarSystem.bodies().size() << " objects." << endl;
 
     cout << "The kinetic energy is " << solarSystem.kineticEnergy() << endl;
     cout << "The potential energy is " << solarSystem.potentialEnergy() << endl;

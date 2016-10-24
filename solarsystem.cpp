@@ -31,6 +31,8 @@ void SolarSystem::calculateForcesAndEnergy()
         CelestialBody &body1 = m_bodies[i];
         for(int j=i+1; j<numberOfBodies(); j++) {
             CelestialBody &body2 = m_bodies[j];
+
+            // Make the code faster...Don't use vec3
             //double dx = body1.position[0] - body2.position[0];
             //double dy = body1.position[1] - body2.position[1];
             //double dz = body1.position[2] - body2.position[2];
@@ -40,16 +42,17 @@ void SolarSystem::calculateForcesAndEnergy()
             vec3 deltaRVector = body1.position - body2.position;
             vec3 deltaRvelocity = body1.velocity - body2.velocity;
             double dr = deltaRVector.length();
-            // Calculate the force and potential energy here
-            //body1.force -= m_G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr);
-            //body2.force += m_G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr);
 
-            // Perihelion precession
-            double l = (deltaRVector.cross(deltaRvelocity)).length();
-            body1.force -= m_G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr)*(1 + 3*l*l/(dr*dr*m_c*m_c));
-            body2.force += m_G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr)*(1 + 3*l*l/(dr*dr*m_c*m_c));
+            // Calculate the forces
+            body1.force -= m_G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr);
+            body2.force += m_G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr);
 
-            // Added potential energy
+            // For perihelion precession use this force instead
+            //double l = (deltaRVector.cross(deltaRvelocity)).length();
+            //body1.force -= m_G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr)*(1 + 3*l*l/(dr*dr*m_c*m_c));
+            //body2.force += m_G*body1.mass*body2.mass*deltaRVector / (dr*dr*dr)*(1 + 3*l*l/(dr*dr*m_c*m_c));
+
+            // Calculate potential energy and angular momentum
             m_potentialEnergy += - m_G*body1.mass*body2.mass / dr;
             m_angularMomentum += body2.mass*body2.position.cross(body2.velocity);
         }
