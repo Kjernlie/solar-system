@@ -1,9 +1,13 @@
-FYS3150/FYS4150 - Project 3 class example
+FYS3150/FYS4150 - Project 3
 ============
-This is a simple example implementing most classes you need in order to do project 3 in FYS3150/FYS4150. 
+Here, you can find the source code, report, plotting files and other files used in Project 3.
 
-You will need to implement the force calculation in solarsystem.cpp and a new class, the Velocity verlet integrator.
+The source code can be run from main.cpp. Simply write the program of your choice, perihelion.cpp, milkyway.cpp, threebody.cpp or twobody.cpp, and run. Note that the value of N, dt and the choice of method, Euler or Verlet, will have to be chosen seperately in the respective program files. 
 
-By default, the example prints all positions every timestep to a file called positions.xyz. You can visualize this by using i.e. [Ovito](http://ovito.org/).
+In the benchmark folder, you can find a text file with some code that tests the conservation of kinetic and potential energy, and angular momentum for the two-body system. To run the benchmarks you will have to insert this code in the main.cpp file. 
 
-Good luck :D 
+The python files for plotting our data is given in the plotting folder.
+
+In the report folder you can read the project report, and the inital velocites and positions, provided by NASA, can be found in the nasa-data folder. 
+
+Have fun!
